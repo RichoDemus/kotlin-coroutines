@@ -1,0 +1,32 @@
+apply plugin: 'kotlin'
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
+dependencies {
+    compile 'org.jetbrains.kotlin:kotlin-runtime:1.2.61'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.61'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.25.0'
+    permitUnusedDeclared 'org.jetbrains.kotlin:kotlin-stdlib:1.2.61'
+    compile 'org.jetbrains:annotations'
+    compile "org.eclipse.jetty:jetty-client:9.4.+"
+
+
+    compile 'com.google.guava:guava:26.0-jre'
+}
+
+repositories {
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.61'
+    }
+}
