@@ -1,5 +1,6 @@
 package http
 
+import com.google.common.base.Stopwatch
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.runBlocking
@@ -20,12 +21,14 @@ fun main(args: Array<String>) {
         httpClient.start()
 
         runBlocking {
+            val watch = Stopwatch.createStarted()
             val results = List(1000) {
                 async { http("https://richodemus.com")}
             }
 
             val asdf = results.map { it.await() }.map { String(it) }
-            println("Got ${asdf.size} responses")
+            watch.stop()
+            println("Got ${asdf.size} responses in $watch")
         }
 
 
@@ -37,7 +40,6 @@ fun main(args: Array<String>) {
 private suspend fun http(url: String) =
         withContext(CommonPool) {
             suspendCoroutine<ByteArray> { continuation ->
-
                 httpClient.newRequest(url)
                         // Buffer response content up to 8 MiB
                         .send(object : BufferingResponseListener(8 * 1024 * 1024) {

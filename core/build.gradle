@@ -10,7 +10,6 @@ dependencies {
     compile 'org.jetbrains.kotlin:kotlin-runtime:1.2.61'
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.61'
     compile 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.25.0'
-    permitUnusedDeclared 'org.jetbrains.kotlin:kotlin-stdlib:1.2.61'
     compile 'org.jetbrains:annotations'
     compile "org.eclipse.jetty:jetty-client:9.4.+"
 
