@@ -1,5 +1,6 @@
 package http
 
+import com.google.common.util.concurrent.RateLimiter
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -80,6 +81,7 @@ class SuspendingHttpClientTest {
             val started = LongAdder()
             val done = LongAdder()
             var running = true
+            val rateLimiter = RateLimiter.create(100.0)
 
             val time = measureNanoTime {
                 runBlocking {
@@ -90,10 +92,13 @@ class SuspendingHttpClientTest {
                         }
                     }
 
-                    val results = List(500) {
+                    val results = List(10_000) {
+                        while ((started.toLong() - done.toLong()) > 500) {
+                            delay(10L)
+                        }
                         async {
                             started.increment()
-                            val result = httpClient.http("http://localhost:8080")
+                            val result = httpClient.http("http://www.mocky.io/v2/x?mocky-delay=1s")
                             done.increment()
                             result
                         }
