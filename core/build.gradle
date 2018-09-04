@@ -12,9 +12,10 @@ dependencies {
     compile 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.25.0'
     compile 'org.jetbrains:annotations'
     compile "org.eclipse.jetty:jetty-client:9.4.+"
-
-
     compile 'com.google.guava:guava:26.0-jre'
+
+    testCompile 'junit:junit:4.12'
+    testCompile'org.mock-server:mockserver-client-java:5.4.1'
 }
 
 repositories {
